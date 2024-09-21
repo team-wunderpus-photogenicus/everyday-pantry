@@ -9,7 +9,7 @@ CREATE TABLE "Recipes" (
 
 CREATE TABLE "Ingredients" (
   "_id" serial PRIMARY KEY,
-  "Indrediant_Name" varchar NOT NULL
+  "Ingredient_Name" varchar NOT NULL
 );
 
 

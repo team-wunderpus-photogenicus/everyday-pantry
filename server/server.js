@@ -22,9 +22,15 @@ app.get('/ingredients', (req, res) => {
 });
 
 // router for creating new
-app.post('/recipes', RecipeController.createRecipe, RecipeController.createIngredients, RecipeController.createJunctionTable, (req, res) => {
-  return res.sendStatus(200);
-});
+app.post(
+  '/recipes',
+  RecipeController.createRecipe,
+  RecipeController.createIngredients,
+  RecipeController.createJunctionTable,
+  (req, res) => {
+    return res.sendStatus(201);
+  }
+);
 
 app.use((err, req, res, next) => {
   console.error(err.stack);
