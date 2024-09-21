@@ -3,7 +3,7 @@ const app = express();
 const path = require('path');
 const RecipeController = require('./controller/recipeController');
 
-app.use(express.static(path.resolve(__dirname, '/build')));
+// app.use(express.static(path.resolve(__dirname, '/build')));
 
 app.get('/', (req, res) => {
   return res
