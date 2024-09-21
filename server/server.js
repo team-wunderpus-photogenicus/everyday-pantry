@@ -4,11 +4,11 @@ const path = require('path');
 
 app.use(express.static(path.resolve(__dirname, '/build')));
 
+app.post('/', )
+
 app.get('/', (req, res) => {
   return res.status(200).sendFile(path.join(__dirname, '../client/public/index.html'));
 })
-
-app.post('/', )
 
 
 
