@@ -48,24 +48,22 @@ const RecipeController = {};
       const ingredientIds = [];
       const ingredients = res.body.ingredients;
 
-      // I DON'T THINK THIS IS A REMOTELY OPTIMAL WAY TO DO THIS
-      let querySubstr = '';
-
-      function updateSubstr(arr) {
-        arr.forEach((el) => {
-          querySubstr = querySubstr.concat(`(${el}), `);
-        });
+      // helper function to create string of ingredients in parenthesis  from array to use in "INSERT" query
+      function createStr(arr) {
+        let returnStr = '';
+        for (let i = 0; i < arr.length; i++) {
+          if (i === arr.length - 1) {
+            returnStr = `${returnStr}(${arr[i]})`;
+          } else {
+            returnStr = `${returnStr}(${arr[i]}), `;
+          }
+        }
+        return returnStr;
       }
 
-      querySubstr = updateSubstr(ingredients);
+      let queryStr = createStr(ingredients);
 
-      const queryStr = `INSERT INTO ingredients (Ingredient_Name) ${querySubstr.substring(
-        0,
-        querySubstr.length - 2
-      )};`;
-      // THROUGH HERE
-
-      await db.query(queryStr);
+      await db.query(`INSERT INTO ingredients (Ingredient_Name) ${queryStr};`);
 
       // query ids of newly created ingredients and save them in array in order to use them
       // to create junction table in RecipeController.createJunctionTable
@@ -87,23 +85,21 @@ RecipeController.createJunctionTable = async (req, res, next) => {
     const recipeId = res.locals.recipeId;
     const ingredientIds = res.locals.ingredientIds;
 
-    // I DON'T THINK THIS IS A REMOTELY OPTIMAL WAY TO DO THIS
-    let querySubstr = '';
-
-    function updateSubstr(arr) {
-      arr.forEach((el) => {
-        querySubstr = querySubstr.concat(`(${recipeId}, ${el}), `);
-      });
+    function createStr(arr) {
+      let returnStr = '';
+      for (let i = 0; i < arr.length; i++) {
+        if (i === arr.length - 1) {
+          returnStr = `${returnStr}(${recipeId}, ${arr[i]})`;
+        } else {
+          returnStr = `${returnStr}(${recipeId}, ${arr[i]}), `;
+        }
+      }
+      return returnStr;
     }
 
-    querySubstr = updateSubstr(ingredientIds);
+    let queryStr = createStr(ingredientIds);
 
-    const queryStr = `INSERT INTO ingredients (Ingredient_NAME) ${querySubstr.substring(
-      0,
-      querySubstr.length - 2
-    )};`;
-    // THROUGH HERE
-    await db.query(queryStr);
+    await db.query(`INSERT INTO ingredients (Ingredient_NAME) ${queryStr};`);
     return next();
   } catch (err) {
     return next(err);
