@@ -15,11 +15,11 @@ module.exports = {
         test: /\.jsx?/,
         exclude: /node_modules/,
         loader: 'babel-loader',
-        options: { presets: ['@babel/preset-env', '@babel/preset-react'], },
+        options: { presets: ['@babel/preset-env', '@babel/preset-react'] },
       },
       {
         test: /\.s?css/,
-        use: ['style-loader', 'css-loader', 'sass-loader']
+        use: ['style-loader', 'css-loader', 'sass-loader'],
       },
     ],
   },
@@ -29,17 +29,16 @@ module.exports = {
       template: 'index.html',
     }),
   ],
-  // devServer: {
-  //   static: {
-  //     publicPath: '/build',
-  //     directory: path.resolve(__dirname, 'build'),
-  //   },
-  //   port: 8080,
-  //   proxy: [
-  //     {
-  //       context: ['/api'],
-  //       target: 'http://localhost:3000',
-  //     },
-  //   ],
-  // },
+  devServer: {
+    static: {
+      directory: path.join(__dirname, './client'),
+    },
+    port: 8080,
+    proxy: [
+      {
+        context: ['/api'],
+        target: 'http://localhost:3000',
+      },
+    ],
+  },
 };
