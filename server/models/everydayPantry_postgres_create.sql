@@ -1,3 +1,6 @@
+-- drops exsiting tables because old tables had typos and to make sure the tables will always start with the info only in the file if you run the command 
+-- psql -d <the PG URI with your password> -f server/models/everydayPantry_postgres_create.sql
+-- creates and populates tables with info
 DROP TABLE IF EXISTS "Recipe_Ingredients";
 DROP TABLE IF EXISTS "Ingredients";
 DROP TABLE IF EXISTS "Recipes";
@@ -23,7 +26,8 @@ CREATE TABLE "Recipe_Ingredients" (
 );
 
 INSERT INTO "Recipes" ("Recipe_Name", "Recipe_Description") VALUES ('French Toast Casserole', 
-'Preheat oven to 425 degrees. Butter a 13x9 inch baking pan and set aside. 
+'Preheat oven to 425 degrees. 
+Butter a 13x9 inch baking pan and set aside. 
 In a small sauce pan, melt butter over medium heat. 
 Once butter has melted, stir in brown sugar until dissolved and mixture is smooth. 
 Pour mixture into the bottom of a 9x13 pan and spread evenly. 
