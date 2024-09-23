@@ -1,7 +1,9 @@
 const express = require('express');
 const app = express();
 const path = require('path');
-const RecipeController = require('./controller/recipeController');
+const RecipeController = require('./controllers/recipeController');
+
+app.use(express.json());
 
 // app.use(express.static(path.resolve(__dirname, '/build')));
 
@@ -18,6 +20,17 @@ app.get('/recipes', RecipeController.getRecipes, (req, res) => {
 app.get('/ingredients', RecipeController.getIngredients, (req, res) => {
   return res.sendStatus(200);
 });
+
+// router for creating new
+app.post(
+  '/recipes',
+  RecipeController.createRecipe,
+  RecipeController.createIngredients,
+  RecipeController.createJunctionTable,
+  (req, res) => {
+    return res.status(201).json(res.locals);
+  }
+);
 
 app.use((err, req, res, next) => {
   console.error(err.stack);
