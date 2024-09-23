@@ -29,6 +29,8 @@ const App = () => {
       {/* <RecipeList /> */}
       {/* passing recipes as a props */}
       <IngredientList recipes={recipes} />
+      <RecipeList />
+      {/* <IngredientList recipes = {recipes}/> */}
     </div>
   );
 };
