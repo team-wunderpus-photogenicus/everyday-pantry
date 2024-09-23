@@ -15,12 +15,12 @@ app.get('/', (req, res) => {
 
 app.get('/recipes', RecipeController.getRecipes, (req, res) => {
   res.status(200);
-  return res.send(res.locals.recipes.rows);
+  return res.json(res.locals.recipes.rows);
 });
 
 app.get('/ingredients', RecipeController.getIngredients, (req, res) => {
   res.status(200);
-  return res.send(res.locals.ingredients);
+  return res.json(res.locals.ingredients);
 });
 
 // router for creating new

@@ -19,7 +19,11 @@ RecipeController.getRecipes = async (req, res, next) => {
           `SELECT i.ingredient_name FROM recipe_ingredients ri INNER JOIN ingredients i on ri.ingredient_id=i._id WHERE ri.recipe_id = '${res.locals.recipes.rows[i]._id}'`
         )
         .then((result) => {
-          res.locals.recipes.rows[i].ingredients = Object.values(result.rows);
+          const ingredientsArray = [];
+          for (let i = 0; i < result.rows.length; i++) {
+            ingredientsArray.push(Object.values(result.rows[i]))
+          }
+          res.locals.recipes.rows[i].ingredients = ingredientsArray;
         });
     }
 
