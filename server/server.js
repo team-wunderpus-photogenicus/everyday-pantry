@@ -14,11 +14,13 @@ app.get('/', (req, res) => {
 });
 
 app.get('/recipes', RecipeController.getRecipes, (req, res) => {
-  return res.sendStatus(200);
+  res.status(200);
+  return res.send(res.locals.recipes.rows);
 });
 
 app.get('/ingredients', RecipeController.getIngredients, (req, res) => {
-  return res.sendStatus(200);
+  res.status(200);
+  return res.send(res.locals.ingredients);
 });
 
 // router for creating new
