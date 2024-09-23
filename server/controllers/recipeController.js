@@ -15,7 +15,7 @@ const RecipeController = {};
     const ingredients = req.body.ingredients;
     console.log(ingredients);
     res.locals.recipeName = ingredients;
-    const instructions = req.body.instructions;
+    const instructions = req.body.recipeDescription;
     console.log(instructions);
     res.locals.recipeName = instructions;
     // Checking for correct data types of request body

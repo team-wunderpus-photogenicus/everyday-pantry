@@ -13,7 +13,7 @@ app.get('/', (req, res) => {
     .sendFile(path.join(__dirname, '../client/public/index.html'));
 });
 
-app.get('/recipes', RecipeController.getRecipes, (req, res) => {
+app.get('/api/recipes', RecipeController.getRecipes, (req, res) => {
   return res.sendStatus(200);
 });
 
