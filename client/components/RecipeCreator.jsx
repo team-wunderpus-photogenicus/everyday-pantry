@@ -1,27 +1,84 @@
-import React from 'react';
-
-// const [ingredients, setIngredients] = useState([]);
-
-// // //function to add a new ingredient to the list
-// const addIngredient = (ingredient) => {
-//   ///update ingredients via state, add ingredient at the end of the array
-//   setIngredients([...ingredients, ingredient])
-// };
-
-// //function to delete a ingredient from the list
-// const deleteIngredient = (ingredient) => {
-// //below line should be revised
-//   setIngredients(ingredients.filter((ingredient) => ingredients !== ingredient));
-// }
+import React, { useEffect, useState } from 'react';
+//TODO: Ingredients.split()
 
 const RecipeCreator = () => {
+  const [newRecipeState, setNewRecipe] = useState({
+    recipeName: '',
+    recipeDescription: '',
+    ingredients: [],
+  });
+
+  const updateName = (e) => {
+    // e.preventDefault();
+    setNewRecipe(
+      Object.assign({ ...newRecipeState }, { recipeName: e.target.value })
+    );
+    console.log('Name updated ' + newRecipeState);
+  };
+
+  const updateDescription = (e) => {
+    // e.preventDefault();
+    setNewRecipe(
+      Object.assign(
+        { ...newRecipeState },
+        { recipeDescription: e.target.value }
+      )
+    );
+    console.log('Description updated', newRecipeState);
+  };
+
+  const updateIngredients = (e) => {
+    // e.preventDefault();
+    setNewRecipe(
+      Object.assign({ ...newRecipeState }, { ingredients: e.target.value })
+    );
+    console.log('Ingredients updated', newRecipeState);
+  };
+
+  const createRecipe = (e) => {
+    e.preventDefault();
+    const url = 'http://127.0.0.1:8080/recipes';
+    const ingredientsArr = newRecipeState.ingredients.split(', ')
+    setNewRecipe(
+      Object.assign({...newRecipeState}, {ingredients: ingredientsArr})
+    )
+    console.log('fixed ingredients data format! ', ingredientsArr)
+    // fetch(url, {
+    //   method: 'POST',
+    //   headers: {
+    //     'Content-Type': 'application/json',
+    //   },
+    //   body: JSON.stringify(newRecipeState),
+    // });
+    setNewRecipe({
+      recipeName: '',
+      recipeDescription: '',
+      ingredients: [],
+    });
+  };
+
   return (
     <div>
-      <form action='/api/newRecipe' method='post'>
-        <input type='text'>Recipe_Name</input>
-        <input type='text'>Recipe_Description</input>
-        <input type='text'>Ingredients</input>
-        <input type='submit'>SUBMIT RECIPE</input>
+      <form>
+        <input
+          type='text'
+          onChange={(e) => updateName(e)}
+          value={newRecipeState.recipeName}
+          placeholder='enter recipe name'
+        />
+        <input
+          type='text'
+          onChange={(e) => updateDescription(e)}
+          value={newRecipeState.recipeDescription}
+          placeholder='enter recipe description'
+        ></input>
+        <input
+          type='text'
+          onChange={(e) => updateIngredients(e)}
+          value={newRecipeState.ingredients}
+          placeholder='Put "," between each'
+        ></input>
+        <input type='submit' onClick={createRecipe}></input>
       </form>
     </div>
   );
