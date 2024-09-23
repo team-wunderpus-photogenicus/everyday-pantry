@@ -1,7 +1,7 @@
 const express = require('express');
 const app = express();
 const path = require('path');
-const RecipeController = require('./recipeController');
+const RecipeController = require('./controllers/recipeController');
 
 app.use(express.json());
 
@@ -28,7 +28,7 @@ app.post(
   RecipeController.createIngredients,
   RecipeController.createJunctionTable,
   (req, res) => {
-    return res.sendStatus(201);
+    return res.status(201).json(res.locals);
   }
 );
 
