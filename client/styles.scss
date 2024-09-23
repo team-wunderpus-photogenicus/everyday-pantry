@@ -6,10 +6,18 @@
 }
 
 /* welcome title in index.html */
+<<<<<<< HEAD:client/styles.css
 
 .weclome-title {
   text-align: left;
   color: #cc81c1;
+=======
+.weclome-title {
+  text-align: left;
+  color: (#ba11a1);
+  // color.scale($color, $lightness: 33.2247557003%)
+  // color.adjust($color, $lightness: 20%)
+>>>>>>> dev:client/styles.scss
   margin-top: 10px;
 }
 
