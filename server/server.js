@@ -13,24 +13,28 @@ app.get('/', (req, res) => {
     .sendFile(path.join(__dirname, '../client/public/index.html'));
 });
 
-app.get('/recipes', RecipeController.getRecipes, (req, res) => {
-  return res.sendStatus(200);
-});
+// app.get('/recipes', RecipeController.getRecipes, (req, res) => {
+//   return res.sendStatus(200);
+// });
 
-app.get('/ingredients', RecipeController.getIngredients, (req, res) => {
-  return res.sendStatus(200);
-});
+// app.get('/ingredients', RecipeController.getIngredients, (req, res) => {
+//   return res.sendStatus(200);
+// });
 
 // router for creating new
 app.post(
   '/recipes',
   RecipeController.createRecipe,
   RecipeController.createIngredients,
-  RecipeController.createJunctionTable,
+  RecipeController.createJunctionTableRows,
   (req, res) => {
     return res.status(201).json(res.locals);
   }
 );
+
+app.delete('/recipes',RecipeController.deleteJunctionTableRows, RecipeController.deleteRecipe, RecipeController.deleteIngredients, (req, res) => {
+  return res.sendStatus(200);
+})
 
 app.use((err, req, res, next) => {
   console.error(err.stack);
