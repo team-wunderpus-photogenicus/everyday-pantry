@@ -2,9 +2,7 @@ import React, { useEffect, useState } from 'react';
 //import RecipeList from './components/RecipeList.jsx';
 import IngredientList from './components/IngredientList.jsx';
 // import RecipeCreator from './components/RecipeCreator.jsx'
-import './styles/styles.css';
-import './styles/styles.scss';
-
+import './styles.css';
 
 const App = () => {
   //hook to update recipes state that are obtained from backend.
