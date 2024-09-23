@@ -6,15 +6,16 @@ const Recipe = ({ recipe }) => {
   //Can a DELETE request be made by a button? Or maybe just a post with a Method of Delete?
 
   //What data does DELETE req need to function?
-  const deleteRecipe = (recipe) => {
-    const url = 'server/api/deleteItem'
-    // fetch(url, {
-    //   method: 'DELETE',
-    //   headers: {
-    //     'Content-Type': 'application/json'
-    //   },
-    //   body: JSON.stringify(recipe)
-    // })
+  const deleteRecipe = () => {
+    // const url = 'server/api/deleteItem'
+    console.log("Trying to send Deletion with ", {recipe_name})
+    fetch( 'recipes', {
+      method: 'DELETE',
+      headers: {
+        'Content-Type': 'application/json'
+      },
+      body: JSON.stringify({recipeName: recipe_name})
+    })
   }
 
   return (
@@ -24,7 +25,7 @@ const Recipe = ({ recipe }) => {
       </div>
       <div>Ingredients List: {ingredients.join(', ')}</div>
       <form>
-        <button type='button' onClick={deleteRecipe(recipe_name)}>DELETE</button>
+        <button type='submit' onClick={deleteRecipe}>DELETE</button>
       </form>
     </div>
   );

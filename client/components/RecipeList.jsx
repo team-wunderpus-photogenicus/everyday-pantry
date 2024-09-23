@@ -2,33 +2,14 @@ import React, { useEffect, useState } from 'react';
 import Recipe from './Recipe.jsx';
 
 const RecipeList = () => {
-  const [recipeState, setRecipeState] = useState([
-    // {
-    //   recipe_name: 'Chicken Dish',
-    //   recipe_description: 'Not raw!',
-    //   ingredients: ['chicken', 'fire'],
-    // },
-    // {
-    //   recipe_name: 'Fish Dish',
-    //   recipe_description: 'Maybe raw!',
-    //   ingredients: ['chicken', 'rice'],
-    // },
-    // {
-    //   recipe_name: 'Fish Dish2',
-    //   recipe_description: 'Maybe raw!', // NOT RAW
-    //   ingredients: ['chicken', 'rice'], // FAKE!!!!!
-    // },
-    // {
-    //   recipe_name: 'Fish Dish23',
-    //   recipe_description: 'Maybe raw!',
-    //   ingredients: ['chicken', 'rice'],
-    // }
-  ]);
+  const [recipeState, setRecipeState] = useState([]);
 
+  
+  //NOTE: This will not update unless you refresh the page
   useEffect(() => {
     async function getData() {
       try {
-        const response = await fetch('recipes'); // GET REQUEST
+        const response = await fetch('recipes');
         const data = await response.json();
         console.log('Found some recipes for the RecipeList State:', data);
         setRecipeState([...data]);
@@ -38,8 +19,7 @@ const RecipeList = () => {
     }
     getData();
   }, []);
-  // //Is there a way to set up useEffect's dependency as the Database? Or should we just assume calls to DB (delete, add) will trigger rerender?
-
+  
   console.log('Recipes?', recipeState);
   if (!recipeState[0]) {
     //TODO: Is this working?

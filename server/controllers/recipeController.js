@@ -29,7 +29,7 @@ RecipeController.getRecipes = async (req, res, next) => {
 
     await Promise.all(res.locals.recipes.rows);
 
-    console.log('recipes plus ingredients', res.locals.recipes.rows);
+    // console.log('recipes plus ingredients', res.locals.recipes.rows);
     return next();
   } catch (e) {
     console.log(e);
@@ -56,9 +56,11 @@ RecipeController.getIngredients = async (req, res, next) => {
     const recipeName = req.body.recipeName;
     res.locals.recipeName = recipeName;
     const ingredients = req.body.ingredients;
+    // console.log(ingredients, Array.isArray(ingredients))
     res.locals.ingredients = ingredients;
     const instructions = req.body.recipeDescription;
     res.locals.instructions = instructions;
+    // console.log(req.body)
     // Checking for correct data types of request body
     //// recipeName and instructions must be strings
     //// ingredients must be an array containing only strings
@@ -76,7 +78,6 @@ RecipeController.getIngredients = async (req, res, next) => {
         },
       });
     }
-
     const queryReturn = await db.query(
       `INSERT INTO recipes (recipe_name, recipe_description) VALUES ('${recipeName}', '${instructions}');`
     );
@@ -155,6 +156,8 @@ RecipeController.createJunctionTableRows = async (req, res, next) => {
 };
 RecipeController.deleteJunctionTableRows = async (req, res, next) => {
   try {
+    console.log('Deleting JunctionTableRows')
+    console.log(`request body: ${req.body}`)
     let ingredientIds = '';
     const recipeName = req.body.recipeName;
     const recipeIdQuery = await db.query(
@@ -176,12 +179,14 @@ RecipeController.deleteJunctionTableRows = async (req, res, next) => {
     res.locals.ingredientIds = ingredientIds;
     return next();
   } catch (err) {
+    console.log("Error deleting junction tables")
     next(err);
   }
 };
 
 RecipeController.deleteRecipe = async (req, res, next) => {
   try {
+    console.log('DeletingRecipe')
     recipeId = res.locals.recipeId;
     await db.query(`DELETE FROM recipes WHERE _id = ${recipeId}`);
     return next();
@@ -192,6 +197,7 @@ RecipeController.deleteRecipe = async (req, res, next) => {
 
 RecipeController.deleteIngredients = async (req, res, next) => {
   try {
+    console.log('Deleting Ingredients')
     const ingredientIds = res.locals.ingredientIds;
     await db.query(
       `DELETE FROM ingredients WHERE _id IN (${ingredientIds})`

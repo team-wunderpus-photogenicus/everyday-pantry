@@ -8,11 +8,13 @@ const App = () => {
   //hook to update recipes state that are obtained from backend.
   const [recipes, setRecipes] = useState([]);
 
+  console.log('ArbitraryComponent', arbitraryCounter)
+
   //hook to condition the fetch Recipes request everytime when the page mount.
   useEffect(() => {
     const fetchRecipes = async () => {
       try {
-        const response = await fetch('http://127.0.0.1:8080/recipes', {
+        const response = await fetch('recipes', {
           mode: 'no-cors'
         });
         const data = await response.json();
@@ -26,9 +28,9 @@ const App = () => {
 
   return (
     <div>
-      <h1 className='app-title'>Hello, App Component Here!</h1>
+      <h1 className='app-title'>Every Day Pantry</h1>
       <RecipeCreator />
-      <RecipeList />
+      <RecipeList  />
       {/* passing recipes as a props */}
       <IngredientList recipes={recipes} />
     </div>

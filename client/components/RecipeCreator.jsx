@@ -36,20 +36,21 @@ const RecipeCreator = () => {
   };
 
   const createRecipe = (e) => {
-    e.preventDefault();
-    const url = 'http://127.0.0.1:8080/recipes';
+    // e.preventDefault();
+    // const url = 'http://127.0.0.1:8080/recipes';
     const ingredientsArr = newRecipeState.ingredients.split(', ')
-    setNewRecipe(
-      Object.assign({...newRecipeState}, {ingredients: ingredientsArr})
-    )
-    console.log('fixed ingredients data format! ', ingredientsArr)
-    // fetch(url, {
-    //   method: 'POST',
-    //   headers: {
-    //     'Content-Type': 'application/json',
-    //   },
-    //   body: JSON.stringify(newRecipeState),
-    // });
+    // setNewRecipe(
+    //   Object.assign({...newRecipeState}, {ingredients: ingredientsArr})
+    // )
+    let passedObj = Object.assign({...newRecipeState}, {ingredients: ingredientsArr})
+    console.log('fixed ingredients data format! ', passedObj)
+    fetch('recipes', {
+      method: 'POST',
+      headers: {
+        'Content-Type': 'application/json',
+      },
+      body: JSON.stringify(passedObj),
+    });
     setNewRecipe({
       recipeName: '',
       recipeDescription: '',
@@ -76,7 +77,7 @@ const RecipeCreator = () => {
           type='text'
           onChange={(e) => updateIngredients(e)}
           value={newRecipeState.ingredients}
-          placeholder='Put "," between each'
+          placeholder='Ingredient: add "," between each'
         ></input>
         <input type='submit' onClick={createRecipe}></input>
       </form>
