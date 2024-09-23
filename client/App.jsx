@@ -1,7 +1,7 @@
 import React, { useEffect, useState } from 'react';
-import RecipeList from './components/RecipeList.jsx';
-// import IngredientList from './components/IngredientList.jsx';
-import RecipeCreator from './components/RecipeCreator.jsx'
+//import RecipeList from './components/RecipeList.jsx';
+import IngredientList from './components/IngredientList.jsx';
+// import RecipeCreator from './components/RecipeCreator.jsx'
 import './styles.css';
 
 const App = () => {

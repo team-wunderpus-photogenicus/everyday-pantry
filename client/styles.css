@@ -1,17 +1,48 @@
+/* app title in app.jsx */
 .app-title {
   text-align: center;
-  color: #48e80f;
+  color: #ba11a1;
   margin-top: 20px;
 }
 
-h2 {
+/* welcome title in index.html */
 
+.weclome-title{
+  text-align: left; 
+  color: lighten(#ba11a1, 20%)
+  margin-top: 10px
+}
+
+body{
+  font-family: Arial, sans-serif;
+  background-color: #f8f9fa;
+  margin: 0;
+  padding: 0;
+  line-height: 1.6; 
+}
+
+
+h2 {
+  text-align: center;
+  color: #555;
+  margin-top: 10px;
 }
 
 ul {
-
+  /* no list style such as bullet points */
+  list-style-type: none; 
+  max-width: 400px; 
+  margin: 20px auto; 
+  background-color: #fff; 
+  box-shadow: 0 2px 10px 
 }
 
 li {
-  
+  /* add space inside each list */
+  padding: 10px; 
+  /* boreder of different list items  */
+  border-bottom: 1px solid #ddd; 
+  /* round the corner  */
+  border-radius: 8px;
+  padding: 20px; 
 }
