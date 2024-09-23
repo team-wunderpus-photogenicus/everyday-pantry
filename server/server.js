@@ -28,11 +28,15 @@ app.post(
   '/recipes',
   RecipeController.createRecipe,
   RecipeController.createIngredients,
-  RecipeController.createJunctionTable,
+  RecipeController.createJunctionTableRows,
   (req, res) => {
     return res.status(201).json(res.locals);
   }
 );
+
+app.delete('/recipes',RecipeController.deleteJunctionTableRows, RecipeController.deleteRecipe, RecipeController.deleteIngredients, (req, res) => {
+  return res.sendStatus(200);
+})
 
 app.use((err, req, res, next) => {
   console.error(err.stack);
