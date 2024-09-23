@@ -5,27 +5,27 @@ DROP TABLE IF EXISTS "Recipe_Ingredients";
 DROP TABLE IF EXISTS "Ingredients";
 DROP TABLE IF EXISTS "Recipes";
 
-CREATE TABLE "Recipes" (
-  "_id" serial PRIMARY KEY,
-  "Recipe_Name" varchar NOT NULL,
-  "Recipe_Description" varchar NOT NULL
+CREATE TABLE recipes (
+  _id serial PRIMARY KEY,
+  recipe_name varchar NOT NULL,
+  recipe_description varchar NOT NULL
 
 );
 
-CREATE TABLE "Ingredients" (
-  "_id" serial PRIMARY KEY,
-  "Ingredient_Name" varchar NOT NULL
+CREATE TABLE ingredients (
+  _id serial PRIMARY KEY,
+  ingredient_name varchar NOT NULL
 );
 
 
 
-CREATE TABLE "Recipe_Ingredients" (
-  "Recipe_id" integer REFERENCES "Recipes"("_id"),
-  "Ingredient_id" integer REFERENCES "Ingredients"("_id"),
-  PRIMARY KEY ("Recipe_id", "Ingredient_id")
+CREATE TABLE recipe_ingredients (
+  recipe_id integer REFERENCES recipes(_id),
+  ingredient_id integer REFERENCES ingredients(_id),
+  PRIMARY KEY (recipe_id, ingredient_id)
 );
 
-INSERT INTO "Recipes" ("Recipe_Name", "Recipe_Description") VALUES ('French Toast Casserole', 
+INSERT INTO recipes (recipe_name, recipe_description) VALUES ('French Toast Casserole', 
 'Preheat oven to 425 degrees. 
 Butter a 13x9 inch baking pan and set aside. 
 In a small sauce pan, melt butter over medium heat. 
@@ -38,20 +38,20 @@ Sprinkle with remaining 1 teaspoon of cinnamon and 1 tablespoon of brown sugar.
 Bake in preheated oven for 25-30 minutes until top is golden brown. 
 Remove from oven and sprinkle with powdered sugar if desired. Enjoy!');
 
-INSERT INTO "Ingredients" ("Ingredient_Name") VALUES ('french bread');
-INSERT INTO "Ingredients" ("Ingredient_Name") VALUES ('butter');
-INSERT INTO "Ingredients" ("Ingredient_Name") VALUES ('brown sugar');
-INSERT INTO "Ingredients" ("Ingredient_Name") VALUES ('eggs');
-INSERT INTO "Ingredients" ("Ingredient_Name") VALUES ('milk');
-INSERT INTO "Ingredients" ("Ingredient_Name") VALUES ('vanilla extract');
-INSERT INTO "Ingredients" ("Ingredient_Name") VALUES ('cinnamon');
-INSERT INTO "Ingredients" ("Ingredient_Name") VALUES ('powdered sugar');
+INSERT INTO ingredients (ingredient_name) VALUES ('french bread');
+INSERT INTO ingredients (ingredient_name) VALUES ('butter');
+INSERT INTO ingredients (ingredient_name) VALUES ('brown sugar');
+INSERT INTO ingredients (ingredient_name) VALUES ('eggs');
+INSERT INTO ingredients (ingredient_name) VALUES ('milk');
+INSERT INTO ingredients (ingredient_name) VALUES ('vanilla extract');
+INSERT INTO ingredients (ingredient_name) VALUES ('cinnamon');
+INSERT INTO ingredients (ingredient_name) VALUES ('powdered sugar');
 
-INSERT INTO "Recipe_Ingredients" VALUES (1, 1);
-INSERT INTO "Recipe_Ingredients" VALUES (1, 2);
-INSERT INTO "Recipe_Ingredients" VALUES (1, 3);
-INSERT INTO "Recipe_Ingredients" VALUES (1, 4);
-INSERT INTO "Recipe_Ingredients" VALUES (1, 5);
-INSERT INTO "Recipe_Ingredients" VALUES (1, 6);
-INSERT INTO "Recipe_Ingredients" VALUES (1, 7);
-INSERT INTO "Recipe_Ingredients" VALUES (1, 8);
+INSERT INTO recipe_ingredients VALUES (1, 1);
+INSERT INTO recipe_ingredients VALUES (1, 2);
+INSERT INTO recipe_ingredients VALUES (1, 3);
+INSERT INTO recipe_ingredients VALUES (1, 4);
+INSERT INTO recipe_ingredients VALUES (1, 5);
+INSERT INTO recipe_ingredients VALUES (1, 6);
+INSERT INTO recipe_ingredients VALUES (1, 7);
+INSERT INTO recipe_ingredients VALUES (1, 8);
