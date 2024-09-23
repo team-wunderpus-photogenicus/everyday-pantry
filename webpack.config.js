@@ -4,7 +4,6 @@ const HtmlWebpackPlugin = require('html-webpack-plugin');
 module.exports = {
   entry: './client/index.js',
   mode: process.env.NODE_ENV === 'production' ? 'production' : 'development',
-  // devtool: false,
   output: {
     path: path.resolve(__dirname, 'build'),
     filename: 'bundle.js',
@@ -26,7 +25,7 @@ module.exports = {
   plugins: [
     new HtmlWebpackPlugin({
       title: 'Development',
-      template: 'index.html',
+      template: 'client/public/index.html',
     }),
   ],
   devServer: {

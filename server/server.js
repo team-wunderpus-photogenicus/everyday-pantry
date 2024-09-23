@@ -5,7 +5,7 @@ const RecipeController = require('./controllers/recipeController');
 
 app.use(express.json());
 
-app.use(express.static(path.resolve(__dirname, '/build')));
+// app.use(express.static(path.resolve(__dirname, '/build')));
 
 app.get('/', (req, res) => {
   return res
@@ -13,11 +13,11 @@ app.get('/', (req, res) => {
     .sendFile(path.join(__dirname, '../client/public/index.html'));
 });
 
-app.get('/recipes', (req, res) => {
+app.get('/recipes', RecipeController.getRecipes, (req, res) => {
   return res.sendStatus(200);
 });
 
-app.get('/ingredients', (req, res) => {
+app.get('/ingredients', RecipeController.getIngredients, (req, res) => {
   return res.sendStatus(200);
 });
 
