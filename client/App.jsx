@@ -25,7 +25,7 @@ const App = () => {
       <h1>Hello, App Component Here!</h1>
       {/* <RecipeCreator /> */}
       <RecipeList />
-      <IngredientList recipes = {recipes}/>
+      {/* <IngredientList recipes = {recipes}/> */}
     </div>
   );
 };
