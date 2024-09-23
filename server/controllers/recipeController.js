@@ -7,17 +7,58 @@ function stringIngredients(arr) {
 
 const RecipeController = {};
 
+RecipeController.getRecipes = async (req, res, next) => {
+  console.log('Retrieving all recipes');
+  try {
+    res.locals.recipes = await db.query('SELECT * FROM recipes');
+    console.log('recipes', res.locals.recipes.rows);
+
+    for (let i = 0; i < res.locals.recipes.rows.length; i++) {
+      await db
+        .query(
+          `SELECT i.ingredient_name FROM recipe_ingredients ri INNER JOIN ingredients i on ri.ingredient_id=i._id WHERE ri.recipe_id = '${res.locals.recipes.rows[i]._id}'`
+        )
+        .then((result) => {
+          const ingredientsArray = [];
+          for (let i = 0; i < result.rows.length; i++) {
+            ingredientsArray.push(Object.values(result.rows[i]))
+          }
+          res.locals.recipes.rows[i].ingredients = ingredientsArray;
+        });
+    }
+
+    await Promise.all(res.locals.recipes.rows);
+
+    console.log('recipes plus ingredients', res.locals.recipes.rows);
+    return next();
+  } catch (e) {
+    console.log(e);
+    return next({ error: e });
+  }
+};
+
+RecipeController.getIngredients = async (req, res, next) => {
+  console.log('Retrieving ingredients');
+  try {
+    const result = await db.query(
+      'SELECT COUNT(*) as count, ingredient_name as ingredient FROM ingredients GROUP BY ingredient_name'
+    );
+    res.locals.ingredients = result.rows;
+    console.log(res.locals.ingredients);
+    return next();
+  } catch (e) {
+    return next({ error: e });
+  }
+};
+
 (RecipeController.createRecipe = async (req, res, next) => {
   try {
     const recipeName = req.body.recipeName;
-    console.log(recipeName);
     res.locals.recipeName = recipeName;
     const ingredients = req.body.ingredients;
-    console.log(ingredients);
-    res.locals.recipeName = ingredients;
-    const instructions = req.body.instructions;
-    console.log(instructions);
-    res.locals.recipeName = instructions;
+    res.locals.ingredients = ingredients;
+    const instructions = req.body.recipeDescription;
+    res.locals.instructions = instructions;
     // Checking for correct data types of request body
     //// recipeName and instructions must be strings
     //// ingredients must be an array containing only strings
@@ -35,15 +76,10 @@ const RecipeController = {};
         },
       });
     }
-    console.log(
-      `INSERT INTO recipes (recipe_name, recipe_description) VALUES ('${recipeName}', '${instructions}');`
-    );
 
     const queryReturn = await db.query(
       `INSERT INTO recipes (recipe_name, recipe_description) VALUES ('${recipeName}', '${instructions}');`
     );
-    // console.log('completed query')
-    // console.log(queryReturn)
     // query id of newly created recipe in order to use it to create junction table in RecipeController.createJunctionTable
     const recipeId = await db.query(
       `SELECT _id FROM recipes WHERE recipe_name = '${recipeName}' ORDER BY _id DESC LIMIT 1`
@@ -56,7 +92,6 @@ const RecipeController = {};
 }),
   (RecipeController.createIngredients = async (req, res, next) => {
     try {
-      // console.log('got to create ingredients, recipe id = ', res.locals.recipeId)
       const ingredientIds = [];
       const ingredients = req.body.ingredients;
 
@@ -83,21 +118,16 @@ const RecipeController = {};
         const result = await db.query(
           `SELECT _id FROM ingredients WHERE ingredient_name = '${ingredient}' ORDER BY _id DESC LIMIT 1`
         );
-        console.log(
-          `ingredient: ${ingredient} ingredientId: ${result.rows[0]._id}`
-        );
         ingredientIds.push(result.rows[0]._id);
       }
-      console.log(ingredientIds);
       res.locals.ingredientIds = ingredientIds;
       return next();
     } catch (err) {
       return next(err);
     }
   });
-RecipeController.createJunctionTable = async (req, res, next) => {
+RecipeController.createJunctionTableRows = async (req, res, next) => {
   try {
-    console.log('got to create junction table');
     const recipeId = res.locals.recipeId;
     const ingredientIds = res.locals.ingredientIds;
 
@@ -121,6 +151,54 @@ RecipeController.createJunctionTable = async (req, res, next) => {
     return next();
   } catch (err) {
     return next(err);
+  }
+};
+RecipeController.deleteJunctionTableRows = async (req, res, next) => {
+  try {
+    let ingredientIds = '';
+    const recipeName = req.body.recipeName;
+    const recipeIdQuery = await db.query(
+      `SELECT _id FROM recipes WHERE recipe_name = '${recipeName}'`
+    );
+    const recipeId = recipeIdQuery.rows[0]._id;
+    res.locals.recipeId = recipeId;
+    const queryDeleteJunctionRows = await db.query(
+      `DELETE FROM recipe_ingredients WHERE recipe_id = '${recipeId}' RETURNING ingredient_id`
+    );
+    const junctionArr = queryDeleteJunctionRows.rows;
+    for (let i = 0; i < junctionArr.length; i++) {
+      if (i === junctionArr.length - 1) {
+        ingredientIds = `${ingredientIds}${junctionArr[i].ingredient_id}`;
+      } else {
+        ingredientIds = `${ingredientIds}${junctionArr[i].ingredient_id}, `;
+      }
+    }
+    res.locals.ingredientIds = ingredientIds;
+    return next();
+  } catch (err) {
+    next(err);
+  }
+};
+
+RecipeController.deleteRecipe = async (req, res, next) => {
+  try {
+    recipeId = res.locals.recipeId;
+    await db.query(`DELETE FROM recipes WHERE _id = ${recipeId}`);
+    return next();
+  } catch (err) {
+    next(err);
+  }
+};
+
+RecipeController.deleteIngredients = async (req, res, next) => {
+  try {
+    const ingredientIds = res.locals.ingredientIds;
+    await db.query(
+      `DELETE FROM ingredients WHERE _id IN (${ingredientIds})`
+    );
+    return next();
+  } catch (err) {
+    next(err);
   }
 };
 
