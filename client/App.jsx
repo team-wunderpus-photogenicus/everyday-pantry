@@ -1,8 +1,8 @@
 import React, { useEffect, useState } from 'react';
-//import RecipeList from './components/RecipeList.jsx';
-import IngredientList from './components/IngredientList.jsx';
-// import RecipeCreator from './components/RecipeCreator.jsx'
-import './styles/styles.css';
+import RecipeList from './components/RecipeList.jsx';
+// import IngredientList from './components/IngredientList.jsx';
+import RecipeCreator from './components/RecipeCreator.jsx'
+import './styles.css';
 
 const App = () => {
   //hook to update recipes state that are obtained from backend.
@@ -25,10 +25,10 @@ const App = () => {
   return (
     <div>
       <h1 className='app-title'>Hello, App Component Here!</h1>
-      {/* <RecipeCreator /> */}
-      {/* <RecipeList /> */}
+      <RecipeCreator />
+      <RecipeList />
       {/* passing recipes as a props */}
-      <IngredientList recipes={recipes} />
+      {/* <IngredientList recipes={recipes} /> */}
       <RecipeList />
       {/* <IngredientList recipes = {recipes}/> */}
     </div>
