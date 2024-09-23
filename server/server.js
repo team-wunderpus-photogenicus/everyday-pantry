@@ -13,13 +13,15 @@ app.get('/', (req, res) => {
     .sendFile(path.join(__dirname, '../client/public/index.html'));
 });
 
-// app.get('/recipes', RecipeController.getRecipes, (req, res) => {
-//   return res.sendStatus(200);
-// });
+app.get('/recipes', RecipeController.getRecipes, (req, res) => {
+  res.status(200);
+  return res.send(res.locals.recipes.rows);
+});
 
-// app.get('/ingredients', RecipeController.getIngredients, (req, res) => {
-//   return res.sendStatus(200);
-// });
+app.get('/ingredients', RecipeController.getIngredients, (req, res) => {
+  res.status(200);
+  return res.send(res.locals.ingredients);
+});
 
 // router for creating new
 app.post(
