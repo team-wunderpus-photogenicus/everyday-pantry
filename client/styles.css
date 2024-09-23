@@ -7,20 +7,19 @@
 
 /* welcome title in index.html */
 
-.weclome-title{
-  text-align: left; 
-  color: lighten(#ba11a1, 20%)
-  margin-top: 10px
+.weclome-title {
+  text-align: left;
+  color: #cc81c1;
+  margin-top: 10px;
 }
 
-body{
+body {
   font-family: Arial, sans-serif;
   background-color: #f8f9fa;
   margin: 0;
   padding: 0;
-  line-height: 1.6; 
+  line-height: 1.6;
 }
-
 
 h2 {
   text-align: center;
@@ -30,19 +29,19 @@ h2 {
 
 ul {
   /* no list style such as bullet points */
-  list-style-type: none; 
-  max-width: 400px; 
-  margin: 20px auto; 
-  background-color: #fff; 
-  box-shadow: 0 2px 10px 
+  list-style-type: none;
+  max-width: 400px;
+  margin: 20px auto;
+  background-color: #fff;
+  box-shadow: 0 2px 10px;
 }
 
 li {
   /* add space inside each list */
-  padding: 10px; 
+  padding: 10px;
   /* boreder of different list items  */
-  border-bottom: 1px solid #ddd; 
+  border-bottom: 1px solid #ddd;
   /* round the corner  */
   border-radius: 8px;
-  padding: 20px; 
+  padding: 20px;
 }
