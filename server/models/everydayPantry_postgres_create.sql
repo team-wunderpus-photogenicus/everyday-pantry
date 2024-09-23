@@ -1,9 +1,9 @@
 -- drops exsiting tables because old tables had typos and to make sure the tables will always start with the info only in the file if you run the command 
 -- psql -d <the PG URI with your password> -f server/models/everydayPantry_postgres_create.sql
 -- creates and populates tables with info
-DROP TABLE IF EXISTS "Recipe_Ingredients";
-DROP TABLE IF EXISTS "Ingredients";
-DROP TABLE IF EXISTS "Recipes";
+DROP TABLE IF EXISTS recipe_ingredients;
+DROP TABLE IF EXISTS ingredients;
+DROP TABLE IF EXISTS recipes;
 
 CREATE TABLE recipes (
   _id serial PRIMARY KEY,
