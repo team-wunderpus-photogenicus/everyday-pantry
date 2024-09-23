@@ -75,3 +75,4 @@ const IngredientList = ({ recipes }) => {
 //   <li>basil</li>
 // </ul> */
 // }
+export default IngredientList
