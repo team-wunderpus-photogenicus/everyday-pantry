@@ -41,13 +41,13 @@ const RecipeList = () => {
 // //Is there a way to set up useEffect's dependency as the Database? Or should we just assume calls to DB (delete, add) will trigger rerender?
 
   console.log('Recipes?', recipeState);
-  if (!recipeState) {
+  if (!recipeState) { //TODO: Is this working?
     console.log('Nothing Here!', recipeState)
     return <div>You have no recipes!</div>;
   }
 
   const recipes = recipeState.map((recipeEl, i) => {
-    console.log('Ding Dong!', recipeEl);
+    // console.log('Ding Dong!', recipeEl);
     return <Recipe key={i} recipe={recipeEl} />;
   });
 
