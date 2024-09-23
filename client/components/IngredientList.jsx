@@ -52,6 +52,6 @@ const IngredientList = ({recipes}) => {
             <h2> Top 10 Ingredients </h2>
             <ul>
                 {Object.keys(topIngredient)}
-            </ul>
+            </ul>\
     )
 } 
