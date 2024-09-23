@@ -9,33 +9,47 @@ const RecipeCreator = () => {
   });
 
   const updateName = (e) => {
-    e.preventDefault();
-    setNewRecipe(Object.create(newRecipeState, { recipeName: e.target.value }));
+    // e.preventDefault();
+    setNewRecipe(
+      Object.assign({ ...newRecipeState }, { recipeName: e.target.value })
+    );
+    console.log('Name updated ' + newRecipeState);
   };
 
   const updateDescription = (e) => {
-    e.preventDefault();
+    // e.preventDefault();
     setNewRecipe(
-      Object.create(newRecipeState, { recipeDescription: e.target.value })
+      Object.assign(
+        { ...newRecipeState },
+        { recipeDescription: e.target.value }
+      )
     );
+    console.log('Description updated', newRecipeState);
   };
 
   const updateIngredients = (e) => {
-    e.preventDefault();
+    // e.preventDefault();
     setNewRecipe(
-      Object.create(newRecipeState, { ingredients: e.target.value })
+      Object.assign({ ...newRecipeState }, { ingredients: e.target.value })
     );
+    console.log('Ingredients updated', newRecipeState);
   };
 
-  const createRecipe = () => {
-    const url = 'server/api/createRecipe';
-    fetch(url, {
-      method: 'POST',
-      headers: {
-        'Content-Type': 'application/json',
-      },
-      body: JSON.stringify(newRecipeState),
-    });
+  const createRecipe = (e) => {
+    e.preventDefault();
+    const url = 'http://127.0.0.1:8080/recipes';
+    const ingredientsArr = newRecipeState.ingredients.split(', ')
+    setNewRecipe(
+      Object.assign({...newRecipeState}, {ingredients: ingredientsArr})
+    )
+    console.log('fixed ingredients data format! ', ingredientsArr)
+    // fetch(url, {
+    //   method: 'POST',
+    //   headers: {
+    //     'Content-Type': 'application/json',
+    //   },
+    //   body: JSON.stringify(newRecipeState),
+    // });
     setNewRecipe({
       recipeName: '',
       recipeDescription: '',
@@ -45,31 +59,26 @@ const RecipeCreator = () => {
 
   return (
     <div>
-      <form action='/api/newRecipe' method='post'>
+      <form>
         <input
           type='text'
-          onChange={updateName()}
+          onChange={(e) => updateName(e)}
           value={newRecipeState.recipeName}
-        >
-          Recipe_Name
-        </input>
+          placeholder='enter recipe name'
+        />
         <input
           type='text'
-          onChange={updateDescription()}
+          onChange={(e) => updateDescription(e)}
           value={newRecipeState.recipeDescription}
-        >
-          Recipe_Description
-        </input>
+          placeholder='enter recipe description'
+        ></input>
         <input
           type='text'
-          onChange={updateIngredients()}
+          onChange={(e) => updateIngredients(e)}
           value={newRecipeState.ingredients}
-        >
-          Ingredients
-        </input>
-        <input type='submit'>
-          SUBMIT RECIPE
-        </input>
+          placeholder='Put "," between each'
+        ></input>
+        <input type='submit' onClick={createRecipe}></input>
       </form>
     </div>
   );

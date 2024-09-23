@@ -15,8 +15,8 @@ const RecipeList = () => {
     },
     {
       recipe_name: 'Fish Dish2',
-      recipe_description: 'Maybe raw!',
-      ingredients: ['chicken', 'rice'],
+      recipe_description: 'Maybe raw!', // NOT RAW
+      ingredients: ['chicken', 'rice'], // FAKE!!!!!
     },
     {
       recipe_name: 'Fish Dish23',
