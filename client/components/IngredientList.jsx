@@ -18,6 +18,7 @@ import { v4 as uuidv4 } from 'uuid';
 const IngredientList = ({ recipes }) => {
   //cache to count the frequency of one ingredient shows up in total recipes
   //cache sample = {'apple': 1, 'pear': 3, 'onion': 3}
+  //console.log()
   const cache = {};
 
   //for each recipe inside of the recipes,

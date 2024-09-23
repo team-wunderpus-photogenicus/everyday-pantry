@@ -25,24 +25,25 @@ const RecipeList = () => {
     // }
   ]);
 
-  // useEffect(() => {
-  //   async function getData() {
-  //     try {
-  //       const response = await fetch('/api/recipes'); // GET REQUEST
-  //       const data = await response.json();
-  //       console.log("Found some recipes for the RecipeList State:", data)
-  //       setRecipeState(data);
-  //     } catch (error) {
-  //       console.log('Prob in RecipeList', error);
-  //     }
-  //   }
-  //   getData()
-  // }, []);
-// //Is there a way to set up useEffect's dependency as the Database? Or should we just assume calls to DB (delete, add) will trigger rerender?
+  useEffect(() => {
+    async function getData() {
+      try {
+        const response = await fetch('recipes'); // GET REQUEST
+        const data = await response.json();
+        console.log('Found some recipes for the RecipeList State:', data);
+        setRecipeState([...data]);
+      } catch (error) {
+        console.log('Prob in RecipeList', error);
+      }
+    }
+    getData();
+  }, []);
+  // //Is there a way to set up useEffect's dependency as the Database? Or should we just assume calls to DB (delete, add) will trigger rerender?
 
   console.log('Recipes?', recipeState);
-  if (!recipeState[0]) { //TODO: Is this working?
-    console.log('Nothing Here!', recipeState)
+  if (!recipeState[0]) {
+    //TODO: Is this working?
+    console.log('Nothing Here!', recipeState);
     return <div>You have no recipes!</div>;
   }
 
