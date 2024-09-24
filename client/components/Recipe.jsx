@@ -3,28 +3,26 @@ import React from 'react';
 const Recipe = ({ recipe }) => {
   const { recipe_name, recipe_description, ingredients } = recipe;
 
-  //Can a DELETE request be made by a button? Or maybe just a post with a Method of Delete?
-
-  //What data does DELETE req need to function?
-  const deleteRecipe = (recipe) => {
-    const url = 'server/api/deleteItem'
-    // fetch(url, {
-    //   method: 'DELETE',
-    //   headers: {
-    //     'Content-Type': 'application/json'
-    //   },
-    //   body: JSON.stringify(recipe)
-    // })
+  const deleteRecipe = () => {
+    console.log("Trying to send Deletion with ", {recipe_name})
+    fetch( 'recipes', {
+      method: 'DELETE',
+      headers: {
+        'Content-Type': 'application/json'
+      },
+      body: JSON.stringify({recipeName: recipe_name})
+    })
   }
 
   return (
     <div>
       <div>
-        {recipe_name}: {recipe_description}
+        <p className='recipeName'>{recipe_name}</p>
       </div>
+      <div>{recipe_description}</div>
       <div>Ingredients List: {ingredients.join(', ')}</div>
       <form>
-        <button type='button' onClick={deleteRecipe(recipe_name)}>DELETE</button>
+        <button type='submit' onClick={deleteRecipe}>DELETE</button>
       </form>
     </div>
   );
