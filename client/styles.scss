@@ -1,0 +1,78 @@
+/* app title in app.jsx */
+.app-title {
+  text-align: center;
+  color: #53c2ea;
+  margin-top: 20px;
+  font-size: 40px;
+}
+
+/* welcome title in index.html */
+.weclome-title {
+  text-align: left;
+  color: (#6fd3e7);
+  // color.scale($color, $lightness: 33.2247557003%)
+  // color.adjust($color, $lightness: 20%)
+  margin-top: 10px;
+}
+
+.recipeName {
+  font-size: 26px;
+  font-weight: bold;
+}
+
+body {
+  font-family: Arial, sans-serif;
+  background-color: #2b86be;
+  margin: 0;
+  padding: 0;
+  line-height: 1.6;
+}
+
+h2 {
+  text-align: center;
+  color: #555;
+  margin-top: 10px;
+}
+
+ul {
+  /* no list style such as bullet points */
+  list-style-type: none;
+  max-width: 400px;
+  margin: 20px auto;
+  background-color: #fff;
+  box-shadow: 0 2px 10px;
+}
+
+li {
+  /* add space inside each list */
+  padding: 10px;
+  /* boreder of different list items  */
+  border-bottom: 1px solid #ddd;
+  /* round the corner  */
+  border-radius: 8px;
+  padding: 20px;
+}
+
+form{
+  background-color: #f4f4f4;
+  border: 1px solid #ccc; 
+
+}
+
+form button{
+  background-color: rgb(173, 10, 148);
+  color: white;
+  padding: 10px 15px; 
+  border: none; 
+  border-radius: 6px; 
+}
+
+form button:hover {
+  // background-color: darken(#ba11a1, 10%);
+}
+
+.list{
+  background-color: #f8bef0;
+  color: rgb(0, 0, 0); 
+  margin: 10px;
+}
