@@ -8,7 +8,6 @@ const App = () => {
   //hook to update recipes state that are obtained from backend.
   const [recipes, setRecipes] = useState([]);
 
-  console.log('ArbitraryComponent', arbitraryCounter)
 
   //hook to condition the fetch Recipes request everytime when the page mount.
   useEffect(() => {
@@ -24,7 +23,7 @@ const App = () => {
       }
     };
     fetchRecipes();
-  }, []); // execute when mount to update
+  }, []);
 
   return (
     <div>

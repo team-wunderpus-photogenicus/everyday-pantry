@@ -56,11 +56,9 @@ RecipeController.getIngredients = async (req, res, next) => {
     const recipeName = req.body.recipeName;
     res.locals.recipeName = recipeName;
     const ingredients = req.body.ingredients;
-    // console.log(ingredients, Array.isArray(ingredients))
     res.locals.ingredients = ingredients;
     const instructions = req.body.recipeDescription;
     res.locals.instructions = instructions;
-    // console.log(req.body)
     // Checking for correct data types of request body
     //// recipeName and instructions must be strings
     //// ingredients must be an array containing only strings
@@ -78,10 +76,13 @@ RecipeController.getIngredients = async (req, res, next) => {
         },
       });
     }
+    // inserting new row to recipes table based on input data
+    //// THIS AND THE FOLLOWING QUERY COULD BE combined into one QUERY, ADDING "RETURNING" IN INSERT SCRIPT
     const queryReturn = await db.query(
       `INSERT INTO recipes (recipe_name, recipe_description) VALUES ('${recipeName}', '${instructions}');`
     );
     // query id of newly created recipe in order to use it to create junction table in RecipeController.createJunctionTable
+    //// COULD BE REMOVED IF PRIOR QUERY RETURNS RECIPE _ID
     const recipeId = await db.query(
       `SELECT _id FROM recipes WHERE recipe_name = '${recipeName}' ORDER BY _id DESC LIMIT 1`
     );
@@ -96,7 +97,7 @@ RecipeController.getIngredients = async (req, res, next) => {
       const ingredientIds = [];
       const ingredients = req.body.ingredients;
 
-      // helper function to create string of ingredients in parenthesis  from array to use in "INSERT" query
+      // helper function to create string of ingredients in parenthesis from array to use in "INSERT" query, think this should just be replaced with ingredients.join(', ');
       function createStr(arr) {
         let returnStr = '';
         for (let i = 0; i < arr.length; i++) {
@@ -132,6 +133,7 @@ RecipeController.createJunctionTableRows = async (req, res, next) => {
     const recipeId = res.locals.recipeId;
     const ingredientIds = res.locals.ingredientIds;
 
+    // helper function that accepts array of ingredientIds and outputs a string with each Id in parenthesis with the recipeId (recipeId, ingredientId). To be used in "INSERT" query.
     function createStr(arr) {
       let returnStr = '';
       for (let i = 0; i < arr.length; i++) {
@@ -156,10 +158,9 @@ RecipeController.createJunctionTableRows = async (req, res, next) => {
 };
 RecipeController.deleteJunctionTableRows = async (req, res, next) => {
   try {
-    console.log('Deleting JunctionTableRows')
-    console.log(`request body: ${req.body}`)
     let ingredientIds = '';
     const recipeName = req.body.recipeName;
+    // querying recipeId based on recipeName in order to remove entries from junction table 
     const recipeIdQuery = await db.query(
       `SELECT _id FROM recipes WHERE recipe_name = '${recipeName}'`
     );
@@ -169,6 +170,7 @@ RecipeController.deleteJunctionTableRows = async (req, res, next) => {
       `DELETE FROM recipe_ingredients WHERE recipe_id = '${recipeId}' RETURNING ingredient_id`
     );
     const junctionArr = queryDeleteJunctionRows.rows;
+    // should refactor as join method
     for (let i = 0; i < junctionArr.length; i++) {
       if (i === junctionArr.length - 1) {
         ingredientIds = `${ingredientIds}${junctionArr[i].ingredient_id}`;

@@ -36,12 +36,7 @@ const RecipeCreator = () => {
   };
 
   const createRecipe = (e) => {
-    // e.preventDefault();
-    // const url = 'http://127.0.0.1:8080/recipes';
-    const ingredientsArr = newRecipeState.ingredients.split(', ')
-    // setNewRecipe(
-    //   Object.assign({...newRecipeState}, {ingredients: ingredientsArr})
-    // )
+    const ingredientsArr = newRecipeState.ingredients.split(', ') //GUIDE: This designates the specific syntax that user needs to input ingredients in: "Banana, Wheat, Sugar, Potatoes, etc"
     let passedObj = Object.assign({...newRecipeState}, {ingredients: ingredientsArr})
     console.log('fixed ingredients data format! ', passedObj)
     fetch('recipes', {
